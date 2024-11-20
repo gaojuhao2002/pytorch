@@ -1,27 +1,12 @@
 # 使用 PyTorch 官方镜像作为基础镜像
 FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel
-
-# 设置非交互模式，避免交互式弹窗
-ENV DEBIAN_FRONTEND=noninteractive
-
-# 替换包源为可靠的镜像站点（如阿里云）
-RUN sed -i s:/archive.ubuntu.com:/mirrors.tuna.tsinghua.edu.cn/ubuntu:g /etc/apt/sources.list
-RUN cat /etc/apt/sources.list
-RUN apt-get clean
-RUN apt-get -y update --fix-missing
-
-# 更新系统包并安装必要工具
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        libgl1-mesa-glx \
-        libpci-dev \
-        curl \
-        nano \
-        psmisc \
-        zip \
-        git && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get -y install libglib2.0-dev
+RUN apt-get -y install libsm6
+RUN apt-get -y install libxrender1
+RUN apt-get -y install libxext-dev
+RUN apt -y --fix-broken install
+RUN apt -y install libgl1-mesa-glx
 
 # 创建新的 Conda 环境并指定 Python 版本
 RUN conda create -n idm python=3.7.10 -y
