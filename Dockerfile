@@ -1,8 +1,12 @@
 # 使用 PyTorch 官方镜像作为基础镜像
 FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel
 
-# 设置非交互模式，避免安装包时的交互式弹窗
+# 设置非交互模式，避免交互式弹窗
 ENV DEBIAN_FRONTEND=noninteractive
+
+# 替换包源为可靠的镜像站点（如阿里云）
+RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirrors.aliyun.com/ubuntu/|g' /etc/apt/sources.list && \
+    sed -i 's|http://security.ubuntu.com/ubuntu/|http://mirrors.aliyun.com/ubuntu/|g' /etc/apt/sources.list
 
 # 更新系统包并安装必要工具
 RUN apt-get update && \
