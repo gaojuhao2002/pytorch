@@ -11,7 +11,7 @@ RUN conda create -n idm python=3.7.10 -y
 ENV PATH="/opt/conda/envs/idm/bin:$PATH"
 
 # 安装依赖到新创建的 Conda 环境中
-RUN /opt/conda/envs/idm/bin/pip install addict future lmdb numpy>=1.17 opencv-python Pillow pyyaml pandas requests scikit-image scipy tb-nightly tqdm einops yapf tensorboardx wandb
+RUN /opt/conda/envs/idm/bin/pip install addict future lmdb numpy>=1.17 opencv-python Pillow pyyaml pandas requests scikit-image scipy tb-nightly tqdm einops yapf tensorboardx wandb basicsr
 
 # 拷贝字体文件到新环境
 COPY ./fonts/* /opt/conda/envs/idm/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/
