@@ -33,6 +33,7 @@ RUN /opt/conda/envs/idm/bin/pip install \
     tensorboardx \
     wandb \
     basicsr
+RUN /opt/conda/envs/idm/bin/pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
 
 # 拷贝字体文件到新环境
 COPY ./fonts/* /opt/conda/envs/idm/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/
