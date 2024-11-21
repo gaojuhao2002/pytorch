@@ -1,14 +1,11 @@
 # 使用 PyTorch 官方镜像作为基础镜像
 FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel
-RUN rm /etc/apt/sources.list.d/cuda.list
-RUN rm /etc/apt/sources.list.d/nvidia-ml.list
-RUN apt-get update
-RUN apt-get -y install libglib2.0-dev
-RUN apt-get -y install libsm6
-RUN apt-get -y install libxrender1
-RUN apt-get -y install libxext-dev
-RUN apt -y --fix-broken install
-RUN apt -y install libgl1-mesa-glx
+
+RUN apt-key del 7fa2af80 && \
+    apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub && \
+    apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/7fa2af80.pub
+
+RUN apt-get update && apt-get install -y libgl1-mesa-glx libpci-dev curl nano psmisc zip git && apt-get --fix-broken install -y
 
 # 创建新的 Conda 环境并指定 Python 版本
 RUN conda create -n idm python=3.7.10 -y
